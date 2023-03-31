@@ -1,0 +1,33 @@
+name: Java Spring Boot Gradle Build
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: 17
+          distribution: 'adopt'
+
+      - name: Grant execute permission to gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: Create jar file
+        run: ./gradlew bootJar
+
+      - name: Upload jar artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: forecast-api
+          path: build/libs/forecast-api.jar

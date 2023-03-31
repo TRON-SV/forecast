@@ -2,6 +2,7 @@ package com.weatherapi.forecast;
 
 import com.google.gson.annotations.SerializedName;
 
+//Class to hold the response data from the WeatherAPI.com API
 public class WeatherResponse {
     @SerializedName("forecast")
     private Forecast forecast;
